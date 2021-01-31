@@ -1,0 +1,26 @@
+{
+  "name": "restn.io",
+  "version": "1.0.0",
+  "description": "Website for restnio project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RestNio/restn.io.git"
+  },
+  "keywords": [
+    "restnio",
+    "website"
+  ],
+  "author": "7kasper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RestNio/restn.io/issues"
+  },
+  "homepage": "https://github.com/RestNio/restn.io#readme",
+  "dependencies": {
+    "restnio": "^3.7.12"
+  }
+}
