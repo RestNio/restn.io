@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        #canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+    </style>
+    <script src='perlin.js'></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        noise.seed(Math.random());
+        let pixelData = pixels.data;
+        let str = 0;
+
+        let t = 0;
+
+        let rX = (Math.random() * 7 + 7) * (Math.random() < 0.5 ? -1 : 1);
+        let rY = (Math.random() * 7 + 7) * (Math.random() < 0.5 ? -1 : 1);
+
+        function keppe() {
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    let index = (y * canvas.width + x) * 4;
+                    // let n = ((noise.perlin3(x/50, y/50, t += 0.00000005) + perScale) / (perScale * 2));
+                    t += 0.0000001;
+                    let nBase   = noise.perper(x + t*rX, y + t*rY, t/3, 0.02);
+                    let nMiddle = noise.perper(x + t*rX, y + t*rY, t/2, 0.04);
+                    let nTop    = noise.perper(x + t*rX*2, y + t*rY*2, t,   0.08);
+                    let nval = Math.round((nBase * t6 + nMiddle * 3 + nTop) * (255 / 15) + 85); // 100 + 155;
+                    pixelData[index + 0] = nval; // Red channel)
+                    pixelData[index + 1] = nval; // Green channel
+                    pixelData[index + 2] = nval; // Blue channel
+                    pixelData[index + 3] = 255; // Alpha channel
+                }ti
+            }
+            ctx.putImageData(pixels, 0, 0);
+            window.requestAnimationFrame(keppe);
+        }
+        keppe();
+
+        function doi() {
+            t++;
+        }
+        document.body.addEventListener('click', doi);
+    </script>
+    <h1>Hello</h1>
+</body>
+</html>

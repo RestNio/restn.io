@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        #canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+    </style>
+    <script src='perlin.js'></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        noise.seed(Math.random());
+        let pixelData = pixels.data;
+        
+        const res = 1;
+
+        function resize() {
+            ctx.canvas.width = window.innerWidth /res;
+            ctx.canvas.height = window.innerHeight /res;
+            pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            pixelData = pixels.data;
+            console.log('Resising!');
+        }
+
+        resize();
+
+        let t = 0;
+        const dT = 0.0001;
+        let mxT = 0;
+        let myT = 0;
+
+        let mouseX = 0.0;
+        let mouseY = 0.0;
+
+
+        let targetX = 0.0;
+        let targetY = 0.0;
+        let targetS = -100;
+
+        function updateMouse(e) {
+            mouseX = ((e.clientX * 2) / window.innerWidth) - 1;
+            mouseY = ((e.clientY * 2) / window.innerHeight) - 1;
+        }
+
+        let lerpXT = 0.0;
+        let lerpYT = 0.0;
+        const lerpdT = 0.01;
+
+        function easeOutSine(x) {
+            return Math.sin((x * Math.PI) / 2);
+        }
+
+        function keppe() {
+            // if (lerpXT < 1) {
+            //     lerpXT += lerpdT;
+            //     targetX = mouseX * easeOutSine(lerpXT);
+            //     // targetX = noise.lerp(targetX, mouseX, lerpXT += lerpdT);
+            // } else {
+            //     targetX = mouseX;
+            //     lerpXT = 0;
+            // }
+            // if (lerpYT < 1) {
+            //     lerpXT += lerpdT;
+            //     targetY = mouseY * easeOutSine(lerpYT);
+            //     // targetY = noise.lerp(targetY, mouseY, lerpYT += lerpdT);
+            // } else {
+            //     targetY = mouseY;
+            //     mouseYT = 0;
+            // }
+
+            targetX += (mouseX - targetX) / 20;
+            targetY += (mouseY - targetY) / 20;
+
+            let startTime = Date.now();
+
+            // Update t values.
+            t += dT; mxT += dT * targetX * targetS; myT += dT * targetY * targetS;
+
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    
+
+
+                    let index = (y * canvas.width + x) * 4;
+                    // let n = ((noise.perlin3(x/50, y/50, t += 0.00000005) + perScale) / (perScale * 2));
+                    
+                    // let nBase   = noise.perper(x + mxT,   y + myT,   t/3, 0.02);
+                    // let nMiddle = noise.perper(x + mxT,   y + myT,   t/2, 0.04);
+                    // let nTop    = noise.perper(x + mxT*2, y + myT*2, t,   0.08);
+                    // let nval = Math.round((nBase * 6 + nMiddle * 3 + nTop) * (255 / 15) + 85); // 100 + 155;
+                    let nval = (t % 1) * 255;
+                    pixelData[index + 0] = nval; // Red channel)
+                    pixelData[index + 1] = nval; // Green channel
+                    pixelData[index + 2] = nval; // Blue channel
+                    pixelData[index + 3] = 255; // Alpha channel
+                }
+            }
+            console.log(`done in ${Date.now() - startTime} millis.`);
+            if (lerpXT !== -1) {ctx.putImageData(pixels, 0, 0); lerpXT = 1; }
+            window.requestAnimationFrame(keppe);
+        }
+        keppe();
+
+        function doi() {
+            t++;
+        }
+        // document.body.addEventListener('click', doi);
+        window.addEventListener('mousemove', updateMouse);
+
+        window.addEventListener('resize', resize);
+    </script>
+    <h1>Hello</h1>
+</body>
+</html>
