@@ -13,6 +13,7 @@ new RestNio((router, rnio) => {
     router.use('', require('./www'));
     // Expose really simple sample API.
     router.use('/api', require('./api'));
+    console.dir(rnio.routes);
 }, {
     port: 5050 // Nginx sends to internal 5050
 }).bind();

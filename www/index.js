@@ -23,7 +23,10 @@ module.exports = (router, rnio) => {
     // router.get('/', () => 'mep');
     // router.redirect('/', '/index.html');
     const index = file(__dirname + '/index.html');
+    const _404 = file(__dirname + '/404.html');
     router.get('/', () => index);
+
+    router.on('404', () => _404);
 
     // Expose resource files.
     router.use(rnio.serve(__dirname + '/resources/', {cache: true}));
