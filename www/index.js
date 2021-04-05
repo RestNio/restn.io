@@ -6,6 +6,13 @@
 
  // Imports
  /** @typedef {import("restnio").RouteBack} RouteBack */
+ /** @typedef {import("restnio").Client} Client */
+ 
+const fs = require('fs');
+function file(path) {
+    return fs.readFileSync(path, 'utf8')
+}
+
 
 /**
  * @type RouteBack
@@ -14,7 +21,9 @@ module.exports = (router, rnio) => {
 
     // Show simple text index.
     // router.get('/', () => 'mep');
-    router.redirect('/', '/index.html');
+    // router.redirect('/', '/index.html');
+    const index = file(__dirname + '/index.html');
+    router.get('/', () => index);
 
     // Expose resource files.
     router.use(rnio.serve(__dirname + '/resources/', {cache: true}));
