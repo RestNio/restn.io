@@ -8,7 +8,7 @@ apps: [
             githook: {
                 command: 'git pull && npm i && pm2 restart restn-io',
                 branch: 'main',
-                port: 4444,
+                port: 5555,
                 secret: 'restniweb'
             }
         },
