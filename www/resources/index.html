@@ -1,29 +1,126 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>RestNio</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="style.css" rel="stylesheet">
-        <!-- Font-Awesome -->
-        <link href="font-awesome-all.css" rel="stylesheet">
-        <!-- Animate On Scroll -->
-        <link href="aos.css" rel="stylesheet">
-        <script src="aos.js"></script>
-        <!-- Highlight.js -->
-        <link href="railscasts.css" rel="stylesheet">
-        <script src="highlight.pack.js"></script>
-        <script src="highlightjs-badge.min.js" defer></script>
-        <script src="pagescript.js" defer></script>
-    </head>
-    <body>
-        <div class="pagewrapper">
-            <div class="installwrapper">
-               <img class="logo iswlogo" src="logo.png">
-                <div class="codewrapper iswcode">
-                    <div class="codetitle"><h2>Install</h2></div>
-                    <pre><code class="batch">npm i restnio</code></pre>
+<head>
+    <title>RestNio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link href="style.css" rel="stylesheet">
+    <!-- Font-Awesome -->
+    <link href="font-awesome-all.css" rel="stylesheet">
+    <!-- Animate On Scroll -->
+    <link href="aos.css" rel="stylesheet">
+    <script src="aos.js"></script>
+    <!-- Highlight.js -->
+    <link href="railscasts.css" rel="stylesheet">
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-badge.min.js" defer></script>
+    <!-- Clouds animation -->
+    <script src='clouds.js'></script>
+    <!-- Page Script -->
+    <script src='script.js' defer></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="pagewrapper">
+        <div class="vstripe"></div>
+        <div class="rowwrapper firstrow">
+            <div class="hstripe"></div>
+            <div class="twoitemwrapper">
+                <div class="witem iswleft">
+                    <div class="logoshadowbox"></div>
+                    <img class="logo" src="logo.png">
+                </div>
+                <div class="codewrapper iswright witem">
+                    <div class="shadowbox"></div>
+                    <div class="blocktitle"><h2>Installing</h2></div>
+                    <pre><code class="batch"># In your node project folder run the command:
+npm i restnio</code></pre>
                 </div>
             </div>
         </div>
-    </body>
+        <div class="rowwrapper">
+            <div class="hstripe"></div>
+            <div class="twoitemwrapper">
+                <div class="witem iswleft">
+                    <div class="ishadowbox"></div>
+                    <div class="icontent">
+                        <i class="iicon far fa-grin-beam"></i>
+                    </div>
+                </div>
+                <div class="codewrapper iswright witem">
+                    <div class="shadowbox"></div>
+                    <div class="blocktitle"><h2>About</h2></div>
+                    <div class="blockcontent">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Fusce turpis mi, bibendum et erat id, vestibulum euismod metus. 
+                        In volutpat, augue et consectetur mattis, enim augue consectetur quam, 
+                        id porttitor nunc sapien vitae nisi. Pellentesque vel enim faucibus, 
+                        fringilla dolor sed, porttitor lorem. Nullam sapien tellus, 
+                        semper eget condimentum ut, ultrices pulvinar purus. 
+                        Pellentesque pellentesque, magna eget sollicitudin vehicula, 
+                        est diam pharetra lorem, a interdum tellus est ac ligula. 
+                        In eleifend sit amet nibh vitae facilisis. Fusce et porttitor velit. 
+                        Integer id diam tortor. Proin iaculis et neque nec scelerisque. 
+                        Pellentesque neque elit, aliquam ac congue at, pulvinar sit amet nisl. 
+                        Sed pharetra porttitor mollis. Orci varius natoque penatibus et
+                        magnis dis parturient montes, nascetur ridiculus mus. 
+                        Integer gravida elit vel lorem fermentum, at tempus velit fringilla. 
+                        Mauris feugiat risus ac blandit molestie. Mauris eget cursus arcu. 
+                        Sed sit amet nunc varius, egestas magna eget, tincidunt justo.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rowwrapper">
+            <div class="hstripe"></div>
+            <div class="twoitemwrapper">
+                <div class="witem iswleft">
+                    <div class="ishadowbox"></div>
+                    <div class="icontent">
+                        <i class="iicon fas fa-cog"></i>
+                    </div>
+                </div>
+                <div class="codewrapper iswright witem">
+                    <div class="shadowbox"></div>
+                    <div class="blocktitle"><h2>Examples</h2></div>
+                    <div class="blockcontent">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Fusce turpis mi, bibendum et erat id, vestibulum euismod metus. 
+                        In volutpat, augue et consectetur mattis, enim augue consectetur quam, 
+                        id porttitor nunc sapien vitae nisi. Pellentesque vel enim faucibus, 
+                        fringilla dolor sed, porttitor lorem. Nullam sapien tellus, 
+                        semper eget condimentum ut, ultrices pulvinar purus. 
+                        Pellentesque pellentesque, magna eget sollicitudin vehicula, 
+                        est diam pharetra lorem, a interdum tellus est ac ligula. 
+                        In eleifend sit amet nibh vitae facilisis. Fusce et porttitor velit. 
+                        Integer id diam tortor. Proin iaculis et neque nec scelerisque. 
+                        Pellentesque neque elit, aliquam ac congue at, pulvinar sit amet nisl. 
+                        Sed pharetra porttitor mollis. Orci varius natoque penatibus et
+                        magnis dis parturient montes, nascetur ridiculus mus. 
+                        Integer gravida elit vel lorem fermentum, at tempus velit fringilla. 
+                        Mauris feugiat risus ac blandit molestie. Mauris eget cursus arcu. 
+                        Sed sit amet nunc varius, egestas magna eget, tincidunt justo.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rowwrapper">
+            <div class="hstripe"></div>
+            <div class="twoitemwrapper">
+                <div class="witem iswleft">
+                    <div class="ishadowbox"></div>
+                    <div class="icontent">
+                        <i class="iicon far fa-address-card"></i>
+                    </div>
+                </div>
+                <div class="iswright witem footer">
+                    <div class="shadowbox"></div>
+                    <div class="blockcontent">
+                        Made by kjepser
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

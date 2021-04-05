@@ -13,45 +13,212 @@
     padding: 0;
 }
 html {
+    position: relative;
+    height: 100%;
     width: 100%;
 }
-
 body {
+    position: relative;
     width: 100%;
+    height: 100%;
+}
+#canvas {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -99;
+}
+
+.rowwrapper {
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.shadow {
+    filter: drop-shadow(-0.5rem 0.75rem 0.5rem var(--darker-grey));
+}
+
+.vstripe {
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    left: calc(10% + 3.5rem);
+    width: 2px;
+    /* height: calc(90% - 5rem); */
+    height: calc(100% - 3rem);;
+    z-index: -1;
+    background-color: var(--primary-blue);
+    filter: drop-shadow(-2px 0px 3px var(--darker-grey));
+}
+.hstripe {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 80%;
+    height: 2px;
+    background-color: var(--primary-blue);
+    filter: drop-shadow(0 2px 3px var(--darker-grey));
+}
+
+.shadowbox {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    border-radius: 3rem;
+    box-shadow: -0.5rem 0.75rem 0.5rem var(--darker-grey);
+}
+
+.logoshadowbox {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    width: 93%;
+    height: 93%;
+    border-radius: 50%;
+    box-shadow: -0.5rem 0.75rem 0.5rem var(--darker-grey);
 }
 
 .pagewrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 80%;
     padding-left: 10%;
     padding-right: 10%;
+    padding-top: 1.5rem;
 }
 
-.installwrapper {
+.twoitemwrapper {
+    position: relative;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
-.iswlogo {
-    width: 20%;
+.iswleft {
+    position: relative;
+    flex: 1;
+    margin-right: 2rem;
+    max-width: 30%;
+    min-width: 7rem;
 }
 
-.iswcode {
+.logo {
+    width: 100%;
+}
+
+.icontent {
+    position: relative;
+    display: block;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 50%;
+    border-radius: 50%;
+    background-color: var(--primary-grey);
+    border: 2px solid var(--primary-blue);
+}
+.iicon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: var(--primary-blue);
+}
+.ishadowbox {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    /* background-color: violet; */
+    width: 50%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: -0.3rem 0.50rem 0.5rem var(--darker-grey);
+}
+
+.iswright {
+    position: relative;
+    flex: 5;
     background-color: var(--darker-grey);
-    width: 60%;
-    height: 5rem;
+    padding-bottom: 1.5rem;
     border: 2px solid var(--primary-blue);
     border-radius: 3rem;
-    overflow: hidden;
+    /* overflow: hidden; */
+    padding-left:  1.5rem;
+    padding-right: 1.5rem;
 }
-
-.codetitle {
+.blocktitle {
     width: 100%;
     text-align: center;
     color: var(--white) !important;
     font-family: Verdana, Geneva, sans-serif;
+}
+.blockcontent {
+    color: var(--white) !important;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.footer {
+    height: 2rem;
+}
+
+@media only screen and (min-width: 950px) {
+    .vstripe {
+        /* Calculated as follows: 
+         * using linear fitting between logo width and page width (1st order polynomial)
+         * then devide by 2 to get center. And add 10% page padding.
+         * Yeah... Css only stuff
+         */
+        left: calc(10% + (100% * 0.133 - 14px) / 2);
+    }
+}
+
+/* On small screens, adjust. */
+@media only screen and (max-width: 600px) {
+    .vstripe {
+        left: 50%;
+    }
+    .hstripe {
+        display: none;
+    }
+    .twoitemwrapper {
+        flex-direction: column;
+    }
+    .witem {
+        margin-bottom: 1rem;
+        flex: 0;
+    }
+    .iswlogo {
+        margin-right: 0rem;
+    }
+    .iswright {
+        width: 100%;
+    }
+    .iswleft {
+        margin-right: 0;
+    }
+    h2 {
+        font-size: 1.25rem;
+    }
 }

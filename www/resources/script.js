@@ -1,6 +1,32 @@
 // ============================
+//      Code Snippet Setup
+// ============================
+
+// apply HighlightJS
+let pres = document.querySelectorAll("pre>code");
+for (let i = 0; i < pres.length; i++) {
+    hljs.highlightBlock(pres[i]);
+}
+// add HighlightJS-badge (options are optional)
+// let options = {   // optional
+//     contentSelector: "#ArticleBody",
+//     // CSS class(es) used to render the copy icon.
+//     copyIconClass: "fas fa-copy",
+//     // CSS class(es) used to render the done icon.
+//     checkIconClass: "fas fa-check text-success"
+// };
+window.highlightJsBadge();
+
+// ============================
+//   Frontground Animations
+// ============================
+
+AOS.init();
+
+// ============================
 //       Backgound Animation
 // ============================
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -61,6 +87,7 @@ function keppe() {
     window.requestAnimationFrame(keppe);
 }
 keppe();
+resize();
 
 window.addEventListener('mousemove', updateMouse);
 window.addEventListener('resize', resize);
