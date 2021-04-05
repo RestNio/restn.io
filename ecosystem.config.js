@@ -8,8 +8,8 @@ apps: [
             githook: {
                 command: 'git pull && npm i && pm2 restart restn-io',
                 branch: 'main',
-                port: 5555,
-                secret: 'scoutuw2wepwop'
+                port: 4444,
+                secret: 'restniweb'
             }
         },
         env_test: {
