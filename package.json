@@ -23,6 +23,6 @@
   "homepage": "https://github.com/RestNio/restn.io#readme",
   "dependencies": {
     "aos": "^2.3.4",
-    "restnio": "^3.7.12"
+    "restnio": "^3.7.13"
   }
 }
