@@ -4,6 +4,7 @@
     --secondary-grey: #505050;
     --darker-grey: #303030;
     --primary-blue: #75a3d2;
+    --secondary-blue: #4387cc;
 
     --white: #ffffff;
 }
@@ -29,6 +30,13 @@ body {
     left: 0;
     top: 0;
     z-index: -99;
+}
+a {
+    color: var(--primary-blue);
+    transition: 0.15s ease-in;
+}
+a:hover {
+    color: var(--secondary-blue);
 }
 
 .pagewrapper {
@@ -178,6 +186,33 @@ body {
 .blockcontent {
     color: var(--white) !important;
     font-family: Verdana, Geneva, sans-serif;
+}
+
+.a16-9 {
+    position: relative;
+    width: calc(100% + 3rem);
+    padding-top: calc(((100% + 3rem) / 100) * 56.25);
+    /* background-color: violet; */
+    border-radius: 3rem;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    overflow: hidden;
+}
+.youtube {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.wyoutube {
+    margin: 0;
+    padding-bottom: 0;
+}
+.wyoutube .blocktitle {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .footer {
