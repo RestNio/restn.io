@@ -7,15 +7,15 @@ let pres = document.querySelectorAll("pre>code");
 for (let i = 0; i < pres.length; i++) {
     hljs.highlightBlock(pres[i]);
 }
-// add HighlightJS-badge (options are optional)
-// let options = {   // optional
-//     contentSelector: "#ArticleBody",
-//     // CSS class(es) used to render the copy icon.
-//     copyIconClass: "fas fa-copy",
-//     // CSS class(es) used to render the done icon.
-//     checkIconClass: "fas fa-check text-success"
-// };
-window.highlightJsBadge();
+// add HighlightJS-badge
+let options = { 
+    onBeforeCodeCopied: function(text, codeElement) {
+        // Only copy relevant code on install thingy:
+        if (codeElement.classList.contains("install")) return 'npm i restnio';
+        return text;
+    }
+};
+window.highlightJsBadge(options);
 
 // ============================
 //   Frontground Animations
