@@ -130,8 +130,94 @@
     };
 
     // Output 0-1 perlin 3d with scale.
+    // @7kasper
     module.perper = function (x, y, t, scale) {
-        return ((noise.perlin3(x*scale, y*scale, t) + perScale) / (perScale * 2))
+        return ((module.perlin3(x*scale, y*scale, t) + perScale) / (perScale * 2))
     };
+
+    /**
+     * CLOUDS
+     * Rough scetch to create nice cloud backgroun using this perlin library
+     * and a simple 2D canvas context.
+     */
+    module.doClouds = function(elem) {
+        // Setup context. Get the main canvas.
+        const canvas = elem;
+        // Get context and pixeldata to the canvas.
+        const ctx = canvas.getContext('2d');
+        let pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        // Seed the perlin generator:
+        module.seed(Math.random());
+        let pixelData = pixels.data;
+        
+        const res = 4;
+
+        function resize() {
+            ctx.canvas.width = window.innerWidth /res;
+            ctx.canvas.height = window.innerHeight /res;
+            pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            pixelData = pixels.data;
+            console.log('Resising!');
+        }
+
+        let t = 0;
+        const dT = 0.0000001;
+        let mxT = 0;
+        let myT = 0;
+
+        let mouseX = 0.0;
+        let mouseY = 0.0;
+
+
+        let targetX = 0.0;
+        let targetY = 0.0;
+        let targetS = -100;
+
+        function updateMouse(e) {
+            mouseX = ((e.clientX * 2) / window.innerWidth) - 1;
+            mouseY = ((e.clientY * 2) / window.innerHeight) - 1;
+        }
+
+        let lerpXT = 0.0;
+        let lerpYT = 0.0;
+        const lerpdT = 0.01;
+
+        function easeOutSine(x) {
+            return Math.sin((x * Math.PI) / 2);
+        }
+
+        function keppe() {
+
+            targetX += (mouseX - targetX) / 20;
+            targetY += (mouseY - targetY) / 20;
+
+
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    
+
+
+                    let index = (y * canvas.width + x) * 4;
+                    // let n = ((noise.perlin3(x/50, y/50, t += 0.00000005) + perScale) / (perScale * 2));
+                    t += dT; mxT += dT * targetX * targetS; myT += dT * targetY * targetS;
+                    let nBase   = noise.perper(x + mxT,   y + myT,   t/3, 0.02);
+                    let nMiddle = noise.perper(x + mxT,   y + myT,   t/2, 0.04);
+                    let nTop    = noise.perper(x + mxT*2, y + myT*2, t,   0.08);
+                    let nval = Math.round((nBase * 6 + nMiddle * 3 + nTop) * (255 / 15) + 85); // 100 + 155;
+                    pixelData[index + 0] = nval; // Red channel)
+                    pixelData[index + 1] = nval; // Green channel
+                    pixelData[index + 2] = nval; // Blue channel
+                    pixelData[index + 3] = 255; // Alpha channel
+                }
+            }
+            ctx.putImageData(pixels, 0, 0);
+            window.requestAnimationFrame(keppe);
+        }
+        keppe();
+
+        window.addEventListener('mousemove', updateMouse);
+
+        window.addEventListener('resize', resize);
+    }
   
   })(this);
