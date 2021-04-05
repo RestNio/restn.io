@@ -232,7 +232,7 @@ class Clouds extends Perlin3D {
      * @param {number} targetY the y to go towards with targetSpeed.
      */
     newFrame(targetX, targetY) {
-        this.t   += this.dT;
+        this.t   += this.dT * 3;
         this.mxT += this.dT * targetX * this.targetS; 
         this.myT += this.dT * targetY * this.targetS;
     }
