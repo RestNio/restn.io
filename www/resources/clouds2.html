@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        #canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+    </style>
+    <script src='clouds2.js'></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Create randomly seeded clouds
+        const clouds = new Clouds(Math.random());
+
+        let pixelData = pixels.data;
+        
+        // Resolution
+        const res = 4;
+
+        function resize() {
+            ctx.canvas.width = window.innerWidth /res;
+            ctx.canvas.height = window.innerHeight /res;
+            pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            pixelData = pixels.data;
+            console.log('Resising!');
+        }
+
+        // Current mouse position tracker.
+        let mouseX = 0.0;
+        let mouseY = 0.0;
+
+        // Target (slow move) tracker.
+        let targetX = 0.0;
+        let targetY = 0.0;
+
+        // Update current mouse position based from the window center.
+        function updateMouse(e) {
+            mouseX = ((e.clientX * 2) / window.innerWidth) - 1;
+            mouseY = ((e.clientY * 2) / window.innerHeight) - 1;
+        }
+
+        // Keppe: animation frame.
+        function keppe() {
+            targetX += (mouseX - targetX) / 20;
+            targetY += (mouseY - targetY) / 20;
+
+            // Calculate new frame
+            clouds.newFrame(targetX, targetY);
+
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    
+                    let index = (y * canvas.width + x) * 4;
+                    
+                    // Get pixeldata at x, y
+                    let nval = clouds.getCloudPixel(x, y);
+                    // Put into pixeldata as greyshade:
+                    pixelData[index + 0] = nval; // Red channel)
+                    pixelData[index + 1] = nval; // Green channel
+                    pixelData[index + 2] = nval; // Blue channel
+                    pixelData[index + 3] = 255; // Alpha channel
+                }
+            }
+            ctx.putImageData(pixels, 0, 0);
+            window.requestAnimationFrame(keppe);
+        }
+        keppe();
+
+        window.addEventListener('mousemove', updateMouse);
+
+        window.addEventListener('resize', resize);
+    </script>
+    <h1>Hello</h1>
+</body>
+</html>
