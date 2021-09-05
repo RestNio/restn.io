@@ -1,4 +1,30 @@
 // ============================
+//          Tabs setup
+// ============================
+
+function selectTab(id) {
+    for (let tabby of document.getElementsByClassName('tab')) {
+        if (!tabby.style.maxHeight) tabby.style.maxHeight = `${tabby.offsetHeight + 10}px`;
+        if (tabby.id == id) {
+            tabby.classList.remove('noHeight');
+        } else {
+            if (!tabby.classList.contains('noHeight')) {
+                tabby.classList.add('noHeight');
+            }
+        }
+    }
+    for (let tabbtn of document.getElementsByClassName('examplebtn')) {
+        if (tabbtn.id == `${id}b`) {
+            tabbtn.classList.add('active');
+        } else {
+            tabbtn.classList.remove('active');
+        }
+    }
+}
+// First selection
+selectTab('codesam1');
+
+// ============================
 //      Code Snippet Setup
 // ============================
 
@@ -21,7 +47,9 @@ window.highlightJsBadge(options);
 //   Frontground Animations
 // ============================
 
-AOS.init();
+AOS.init({
+    duration: 800
+});
 
 // ============================
 //       Backgound Animation

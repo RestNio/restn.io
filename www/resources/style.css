@@ -5,7 +5,7 @@
     --darker-grey: #303030;
     --primary-blue: #75a3d2;
     --secondary-blue: #4387cc;
-
+    --warning: #d6b967;
     --white: #ffffff;
 }
 
@@ -45,6 +45,10 @@ hr {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--secondary-blue), rgba(0, 0, 0, 0));
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
+}
+
+warning {
+    color: var(--warning);
 }
 
 .pagewrapper {
@@ -242,6 +246,61 @@ hr {
 }
 .lastrow {
     margin-top: 2rem;
+}
+
+.linkies {
+    font-size: 4rem;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+.linkies a:hover{
+    transform: scale(1.1);
+    color: whitesmoke;
+}
+
+.examplemenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.examplebtn {
+    background-color: var(--primary-blue);
+    border: 2px solid var(--secondary-blue);
+    padding: 0 0.1rem;
+    color: white;
+    font-family: Verdana, Geneva, sans-serif;
+    transition: 0.15s ease-in;
+}
+.examplebtn.active {
+    transform: translate(0.5rem);
+    background-color: red !important;
+}
+/* .examplebtn {
+    background-color: var(--primary-blue);
+    border: 2px solid var(--secondary-blue);
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    color: white;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: large;
+    transition: 0.15s ease-in;
+} */
+.examplebtn:hover {
+    background-color: whitesmoke;
+    color: var(--primary-blue);
+}
+
+#samplecoding {
+    display: flex;
+}
+.tab {
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+.noHeight {
+    max-height: 0px !important;
 }
 
 @media only screen and (min-width: 950px) {
