@@ -237,13 +237,13 @@ module.exports = (router, rnio) => {
 
 // Helper function
 function diffYears(dateold, datenew) {
-    var ynew = datenew.getFullYear();
-    var mnew = datenew.getMonth();
-    var dnew = datenew.getDate();
-    var yold = dateold.getFullYear();
-    var mold = dateold.getMonth();
-    var dold = dateold.getDate();
-    var diff = ynew - yold;
+    let ynew = datenew.getFullYear();
+    let mnew = datenew.getMonth();
+    let dnew = datenew.getDate();
+    let yold = dateold.getFullYear();
+    let mold = dateold.getMonth();
+    let dold = dateold.getDate();
+    let diff = ynew - yold;
     if (mold > mnew) diff--;
     else {
         if (mold == mnew) {

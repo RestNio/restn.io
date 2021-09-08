@@ -260,6 +260,9 @@ warning {
 }
 
 .examplemenu {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: center;
