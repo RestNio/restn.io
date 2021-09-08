@@ -260,8 +260,6 @@ warning {
 }
 
 .examplemenu {
-    position: sticky;
-    top: 2rem;
     height: fit-content;
     display: flex;
     flex-direction: row;
@@ -332,6 +330,8 @@ warning {
     .examplemenu {
         flex-direction: column;
         justify-content: start;
+        position: sticky;
+        top: 2rem;
     }
     .examplebtn {
         padding: 0 0.1rem;
