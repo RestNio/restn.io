@@ -94,28 +94,230 @@ npm i restnio</code></pre>
                     <div class="blocktitle"><h2><a id="examples"></a>Examples</h2></div>
                     <div class="blockcontent" id="samplecoding">
                         <div class="examplemenu">
-                            <button id="codesam1b" class="examplebtn" onclick="selectTab('codesam1')">Example #1</button>
-                            <button id="codesam2b" class="examplebtn" onclick="selectTab('codesam2')">Example #2</button>
-                            <button id="codesam3b" class="examplebtn" onclick="selectTab('codesam3')">Example #3</button>
-                            <button id="codesam4b" class="examplebtn" onclick="selectTab('codesam4')">Example #4</button>
+                            <button id="codesam1b" class="examplebtn" onclick="selectTab('codesam1')">#1 Hello World</button>
+                            <button id="codesam2b" class="examplebtn" onclick="selectTab('codesam2')">#2 Hello Person</button>
+                            <button id="codesam3b" class="examplebtn" onclick="selectTab('codesam3')">#3 Params & Objects</button>
+                            <button id="codesam4b" class="examplebtn" onclick="selectTab('codesam4')">#4 Permissions</button>
                         </div>
                         <div class="codetabwrapper">
-                            <pre class="tab" id="codesam1"><code class="javascript">// In your node project folder run the command:
-npm i restnio
-// Test lolol
+                            <pre class="tab" id="codesam1"><code class="javascript">const RestNio = require('restnio');
+
+new RestNio((router, rnio) => {
+    router.get('/', () => 'Hello World');
+}, {
+    port: 80
+}).bind();
 </code></pre>
-                            <pre class="tab" id="codesam2"><code class="javascript">// This is sample #2
-let test = '21jump';
+                            <pre class="tab" id="codesam2"><code class="javascript">/**
+* Example #2 - Basic get requests & project setup
+*/
+const RestNio = require('restnio');
+
+// Create new server, specified with the root router.
+new RestNio((router, rnio) => {
+    // Register the index route with a simple get request.
+    // We can simply use a very short hand notation for something basic. 
+    router.get('/', () => 'Hello World');
+    // Or use a fuller notation that for instance uses a required string query parameter:
+    router.get('/hello', {
+        params: {
+            name: rnio.params.string
+        },
+        func: (params) => {
+            return `Hello ${params.name}!`;
+        }
+    });
+    // Of course we can use all HTTP functions like POST or PUT.
+    router.post('/post', () => 'registered');
+    // In this case only a POST request registers. We can also do eveyrthing:
+    router.all('/all', () => 'Works either way');
+    // On default requests are exposed to websocket connections automatically.
+    // If you don't need or want this you can turn off websockets entirely in the options
+    // Or specify a http only route like this:
+    router.httpGet('/httponly', () => 'No Websocket');
+    // We can also specify a websocket only route:
+    router.ws('/ws', () => 'Yes Websocket');
+// After the router we can specify some options to the server.
+// This includes stuff like the port, turning on/off certain features and proxy options.
+}, {
+    port: 80 // Bind to default internet port 80
+// Last but not least we start the server using bind.
+}).bind();
 </code></pre>
-                            <pre class="tab" id="codesam3"><code class="javascript">// This is sample #3
-while(true) {
-    console.log('Hi');
+                            <pre class="tab" id="codesam3"><code class="javascript">/**
+ * Example #3 - Params & Objects
+ * Note that the main setup has been left out.
+ * This router can actually be imported in another 
+ * (such as the route router) using for example:
+ * router.use('/example3', require(__dirname + '/samples/example3'), true);
+ */
+
+// The following 2 lines help with type-definitions in (for example) vscode.
+/** @typedef {import("restnio").RouteBack} RouteBack */
+/** @type RouteBack */
+module.exports = (router, rnio) => {
+    // The router accepts all query or post or json parameters.
+    // They can be used in the javascript sense.
+    router.get('/hello', (params) => `Hello ${params.name}`);
+    // The function can return quite a lot. A string is send as regular HTML.
+    // On default a promise is only send after completion and an object is send as JSON.
+    router.get('/object', () => ({type:'test', working: true}));
+    // Currently we have seen mostly the short notation.
+    // Route definitions can also be given with object instructions.
+    // This makes defining parameters easier.
+    router.get('/test', {
+        func: () => {
+            return 'it works!'
+        }
+    });
+    // Let's get creative with parameters. We can force them to be here:
+    router.get('/hi', {
+        params: {
+            name: {
+                required: true
+            }
+        },
+        func: (params) => `Hi ${params.name}`
+    });
+    // We can specify the type and perform checks on it:
+    router.get('/times10', {
+        params: {
+            number: {
+                required: true,
+                // Type refers to the javascript 'instanceof' type.
+                type: 'number',
+                // Check is an array of functions that can be used to check the parameter.
+                // If a check fails, the function is not executed.
+                checks: [
+                    (num) => num < 10
+                ]
+            }
+        },
+        func: (params) => `Your answer is ${params.number * 10}`
+    });
+    // We can also do formatting:
+    router.get('/touppercase', {
+        params: {
+            text: {
+                required: true,
+                type: 'string',
+                // Similar to checks, formatters are executed before
+                // the function runs and done in order.
+                formatters: [
+                    (str) => str.toUpperCase(),
+                    (str) => `${str} is awesome!`
+                ]
+            }
+        },
+        func: (params) => `Your text: ${params.text}`
+    });
+    // Most of these functions have been built in. We can specify checks like:
+    router.get('/search', {
+        params: {
+            query: {
+                required: true,
+                type: 'string',
+                // restnio reference. $p is short for parameters.
+                // $c for checks and $f for formatters.
+                checks: [rnio.$p.$c.str.min(3)],
+                formatters: [rnio.$p.$f.str.toUpperCase()]
+            }
+        },
+        func: (params) => `No results for ${params.query}!`
+    });
+    // Or sometimes you just need any required string and date.
+    router.get('/congratulate', {
+        params: {
+            name: rnio.$p.string,
+            birthday: rnio.$p.date
+        },
+        func: (params) => `Congratz! ${params.name} just turned ${diffYears(params.birthday, new Date())}!`
+    });
+};
+
+// Helper function
+function diffYears(dateold, datenew) {
+    var ynew = datenew.getFullYear();
+    var mnew = datenew.getMonth();
+    var dnew = datenew.getDate();
+    var yold = dateold.getFullYear();
+    var mold = dateold.getMonth();
+    var dold = dateold.getDate();
+    var diff = ynew - yold;
+    if (mold > mnew) diff--;
+    else {
+        if (mold == mnew) {
+            if (dold > dnew) diff--;
+        }
+    }
+    return diff;
 }
 </code></pre>
-                            <pre class="tab" id="codesam4"><code class="javascript">// This is sample #4
-function test () {
-    return;
-}
+                            <pre class="tab" id="codesam4"><code class="javascript">/**
+ * Example #4 - Permissions
+ * A big pre of RestNio is the built-in permissions system.
+ * With JWT tokens permissions can be granted and used.
+ */
+
+const { params } = require("restnio");
+
+// The following 2 lines help with type-definitions in (for example) vscode.
+/** @typedef {import("restnio").RouteBack} RouteBack */
+/** @type RouteBack */
+module.exports = (router, rnio) => {
+    // Defining a route with a permission is quite easy:
+    router.get('/hidden', {
+        // Client requires the permission 'hidden'
+        permissions: ['hidden'],
+        func: () => 'Hidden Hello!'
+    });
+    // The above API route can only be used with the correct permission.
+    // Permissions can be granted to a client object. This makes sense
+    // mostly in the context of websockets. HTTP clients (webrequests)
+    // usually work with either a TOKEN header or cookie token.
+    // RestNio supports both options on default. 
+    // Let's give the client such a token.
+    router.get('/gettoken', async (params, client) => {
+        // Set a HTTP cookie with the token.
+        client.cookie('token', await rnio.token.grant(
+        ['hidden', 'call.kasper'], {
+            expiresIn: '1m'
+        }));
+        return 'Access granted!';
+    });
+    // Notice how the token is granted with an async await pattern.
+    // After running the /gettoken request and setting the cookie header
+    // the client can now use the /hidden request for 1 minute (then the token expires)
+    // We can also set parameter based permissions like:
+    router.get('/call', {
+        params: {
+            name: rnio.$p.string
+        },
+        // User needs both hidden and call.:name permission.
+        permissions: ['hidden', 'call.:name'],
+        func: (params) => `Calling ${params.name}`
+    });
+    // Now a user needs a permission based on the name used.
+    // With the token from before the user can only use call with 'kasper'.
+    // We can also use regex or wildcards when giving permissions:
+    router.get('/getmastertoken', async (params, client) => {
+        // Set a HTTP cookie with the token.
+        client.cookie('token', await rnio.token.grant(
+        ['hidden', 'call.*', 'song.*'], {
+            expiresIn: '1m'
+        }));
+        return 'Master access granted!';
+    });
+    // This also works with url parameters:
+    router.get('/yodl/:song', {
+        params: {
+            song: rnio.$p.string
+        },
+        permissions: ['song.:song.yodl'],
+        func: (params) => `Yodelaaa-${params.song}-tiio`
+    });
+    
+};
 </code></pre>
                         </div>
                     </div>
