@@ -27,7 +27,7 @@ module.exports = (router, rnio) => {
     const robots = file(__dirname + '/robots.txt');
     router.get('/', () => index);
     router.get('/robots.txt', () => robots);
-    router.on('404', () => _404);
+    router.on('404', () => {throw [404, _404]});
 
     // Expose resource files.
     router.use(rnio.serve(__dirname + '/resources/', {cache: true}));

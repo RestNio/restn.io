@@ -15,5 +15,10 @@ new RestNio((router, rnio) => {
     router.use('/api', require('./api'));
     console.dir(rnio.routes);
 }, {
-    port: 5050 // Nginx sends to internal 5050
+    port: 5050, // Nginx sends to internal 5050
+    default: {
+        httpProperties: {
+            jsonError: false
+        }
+    }
 }).bind();
