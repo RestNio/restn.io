@@ -24,6 +24,12 @@ function selectTab(id) {
 // First selection
 selectTab('codesam1');
 
+// Add button behaviour
+document.getElementById('codesam1b').onclick = function() {selectTab('codesam1')};
+document.getElementById('codesam2b').onclick = function() {selectTab('codesam2')};
+document.getElementById('codesam3b').onclick = function() {selectTab('codesam3')};
+document.getElementById('codesam4b').onclick = function() {selectTab('codesam4')};
+
 // ============================
 //      Code Snippet Setup
 // ============================
