@@ -248,6 +248,259 @@ warning {
     margin-top: 2rem;
 }
 
+/* ============================
+       Wiki Viewer
+   ============================ */
+
+/* overflow:clip clips to border-radius like overflow:hidden but does NOT
+   create a scroll container, so position:sticky works inside. */
+.iswright:has(.wikiwrapper) {
+    overflow: clip;
+    box-shadow: -0.5rem 0.75rem 0.5rem var(--darker-grey);
+}
+.iswright:has(.wikiwrapper) > .shadowbox {
+    display: none;
+}
+
+.wikiwrapper {
+    display: flex;
+    flex-direction: row;
+    /* Extend full-bleed within the card (mirrors .a16-9 technique) */
+    width: calc(100% + 3rem);
+    margin-left:  -1.5rem;
+    margin-right: -1.5rem;
+    border-top: 1px solid rgba(116, 163, 210, 0.3);
+    border-radius: 0 0 calc(3rem - 2px) calc(3rem - 2px);
+    /* Height is CSS-driven. No JS needed — content fades out during page
+       switches so the instant height change is invisible. */
+}
+
+/* Toggle button — hidden on desktop, shown on mobile */
+.wikinavtoggle {
+    display: none;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    background-color: #1a1a1a;
+    color: var(--primary-blue);
+    border: none;
+    border-bottom: 1px solid rgba(116, 163, 210, 0.25);
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.1s ease;
+}
+.wikinavtoggle:hover {
+    background-color: #242424;
+}
+.wikinavchevron {
+    font-size: 0.75rem;
+    transition: transform 0.25s ease;
+}
+.wikiwrapper.wikiNavOpen .wikinavchevron {
+    transform: rotate(180deg);
+}
+
+.wikinav {
+    width: 185px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #202020;
+    padding: 0.6rem 0;
+    border-right: 1px solid rgba(116, 163, 210, 0.25);
+}
+
+.wikinavsection {
+    display: block;
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--primary-blue);
+    padding: 0.9rem 1rem 0.2rem;
+    font-family: Verdana, Geneva, sans-serif;
+    opacity: 0.8;
+}
+
+.wikinavlink {
+    display: block;
+    padding: 0.28rem 1rem;
+    font-size: 0.81rem;
+    color: #bbb;
+    text-decoration: none;
+    font-family: Verdana, Geneva, sans-serif;
+    transition: background 0.1s ease, color 0.1s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.wikinavlink:hover {
+    color: var(--white);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+.wikinavlink.active {
+    color: var(--white);
+    background-color: rgba(116, 163, 210, 0.18);
+    border-left: 3px solid var(--primary-blue);
+    padding-left: calc(1rem - 3px);
+}
+
+.wikimain {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.wikicontent {
+    overflow-y: auto;
+    flex-grow: 1;
+    /* Never taller than the viewport; nav height is the natural minimum */
+    max-height: calc(100vh - 2.5rem);
+    padding: 1.1rem 1.4rem;
+    color: var(--white);
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    transition: opacity 0.15s ease;
+}
+
+.wikifooter {
+    padding: 0.4rem 1.4rem;
+    border-top: 1px solid rgba(116, 163, 210, 0.2);
+    text-align: right;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+}
+.wikifooter a {
+    color: var(--primary-blue);
+}
+.wikifooter a:hover {
+    color: var(--secondary-blue);
+}
+
+.wikiloading, .wikierror {
+    display: block;
+    padding: 2rem 1rem;
+    color: var(--primary-blue);
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/* Markdown content typography */
+.wikicontent h1 {
+    font-size: 1.35rem;
+    margin-bottom: 0.6rem;
+    color: var(--white);
+    border-bottom: 1px solid rgba(116, 163, 210, 0.35);
+    padding-bottom: 0.3rem;
+}
+.wikicontent h2 {
+    font-size: 1.1rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.45rem;
+    color: var(--white);
+}
+.wikicontent h3 {
+    font-size: 0.97rem;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    color: var(--primary-blue);
+}
+.wikicontent h4, .wikicontent h5, .wikicontent h6 {
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.25rem;
+    color: var(--primary-blue);
+}
+.wikicontent p {
+    margin-bottom: 0.65rem;
+}
+.wikicontent ul, .wikicontent ol {
+    padding-left: 1.5rem;
+    margin-bottom: 0.65rem;
+}
+.wikicontent li {
+    margin-bottom: 0.15rem;
+}
+.wikicontent a {
+    color: var(--primary-blue);
+}
+.wikicontent a:hover {
+    color: var(--secondary-blue);
+}
+.wikicontent code {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-size: 0.84em;
+    font-family: monospace;
+}
+.wikicontent pre {
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    overflow-x: auto;
+    margin-bottom: 0.75rem;
+}
+.wikicontent pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.81rem;
+}
+.wikicontent table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    font-size: 0.81rem;
+}
+.wikicontent th, .wikicontent td {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(116, 163, 210, 0.3);
+    text-align: left;
+}
+.wikicontent th {
+    background-color: rgba(116, 163, 210, 0.14);
+    color: var(--white);
+}
+.wikicontent blockquote {
+    border-left: 3px solid var(--primary-blue);
+    padding: 0.1rem 0 0.1rem 1rem;
+    margin: 0 0 0.65rem 0;
+    color: #aaa;
+    font-style: italic;
+}
+.wikicontent hr {
+    margin: 0.9rem 0;
+}
+
+/* Copy button on wiki code blocks */
+.wikiCopyBtn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.15rem 0.55rem;
+    background: rgba(116, 163, 210, 0.18);
+    color: var(--primary-blue);
+    border: 1px solid rgba(116, 163, 210, 0.4);
+    border-radius: 0.3rem;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: Verdana, Geneva, sans-serif;
+    transition: background 0.15s ease, color 0.15s ease;
+    z-index: 1;
+}
+.wikiCopyBtn:hover {
+    background: rgba(116, 163, 210, 0.35);
+    color: var(--white);
+}
+.wikiCopyBtn.copied {
+    color: #7ec87e;
+    border-color: #7ec87e;
+}
+
 .linkies {
     font-size: 4rem;
     display: flex;
@@ -259,12 +512,33 @@ warning {
     color: whitesmoke;
 }
 
+.doclinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.2rem;
+    margin-top: 0.75rem;
+}
+.doclinks a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+.doclinks a:hover {
+    color: var(--secondary-blue);
+}
+.doclinks i {
+    font-size: 0.85em;
+    opacity: 0.85;
+}
+
 .examplemenu {
     height: fit-content;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    min-width: fit-content;
 }
 .codetabwrapper {
     flex-grow: 1;
@@ -342,6 +616,14 @@ warning {
     .examplebtn.active {
         transform: translate(0.5rem);
     }
+    /* Wiki sidebar: sticky just like the example code menu */
+    .wikinav {
+        position: sticky;
+        top: 2rem;
+        align-self: flex-start;
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+    }
 }
 
 /* On small screens, adjust. */
@@ -380,5 +662,50 @@ warning {
 
     .examplebtn {
         font-size: 2.25vw;
+    }
+
+    /* Wiki viewer \u2014 mobile layout */
+    .wikinavtoggle {
+        display: flex;
+    }
+    .wikiwrapper {
+        flex-direction: column;
+        min-height: 0;
+    }
+    .wikinav {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-right: none;
+        border-bottom: 1px solid rgba(116, 163, 210, 0.25);
+        padding: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .wikiwrapper.wikiNavOpen .wikinav {
+        max-height: 600px;
+        padding: 0.35rem 0;
+    }
+    .wikinavsection {
+        width: 100%;
+        padding: 0.55rem 0.75rem 0.1rem;
+        font-size: 0.62rem;
+    }
+    .wikinavlink {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.78rem;
+    }
+    .wikifooter {
+        text-align: center;
+    }
+    /* Tables and code blocks scrollable horizontally on narrow screens */
+    .wikicontent table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .wikicontent pre {
+        font-size: 0.78rem;
     }
 }

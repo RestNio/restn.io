@@ -35,5 +35,6 @@ module.exports = (router, rnio) => {
     router.use(rnio.serve('./other_modules/fontawesome/', {cache: true}));
     router.use(rnio.serve('./node_modules/aos/dist/', {cache: true}));
     router.use(rnio.serve('./other_modules/highlight/', {cache: true}));
+    router.use(rnio.serve('./node_modules/marked/lib/', {cache: true}));
 
 }
