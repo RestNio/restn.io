@@ -22,11 +22,13 @@ module.exports = (router, rnio) => {
     // Show simple text index.
     // router.get('/', () => 'mep');
     // router.redirect('/', '/index.html');
-    const index  = file(__dirname + '/index.html');
-    const _404   = file(__dirname + '/404.html');
-    const robots = file(__dirname + '/robots.txt');
+    const index   = file(__dirname + '/index.html');
+    const _404    = file(__dirname + '/404.html');
+    const robots  = file(__dirname + '/robots.txt');
+    const sitemap = file(__dirname + '/sitemap.xml');
     router.get('/', () => index);
     router.get('/robots.txt', () => robots);
+    router.get('/sitemap.xml', () => sitemap);
     router.on('404', () => {throw [404, _404]});
 
     // Expose resource files.

@@ -20,20 +20,22 @@
     <meta name="twitter:image" content="https://restn.io/logo.png"/>
     <meta charset="utf-8"/>
     <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <!-- Preload the LCP image so the browser fetches it early -->
+    <link rel="preload" as="image" href="logo.png">
     <link href="style.css" rel="stylesheet">
     <!-- Font-Awesome -->
     <link href="font-awesome-all.css" rel="stylesheet">
     <!-- Animate On Scroll -->
     <link href="aos.css" rel="stylesheet">
-    <script src="aos.js"></script>
+    <script src="aos.js" defer></script>
     <!-- Highlight.js -->
     <link href="railscasts.css" rel="stylesheet">
-    <script src="highlight.pack.js"></script>
+    <script src="highlight.pack.js" defer></script>
     <script src="highlightjs-badge.min.js" defer></script>
     <!-- Marked.js — Markdown renderer -->
-    <script src='marked.umd.js'></script>
+    <script src='marked.umd.js' defer></script>
     <!-- Clouds animation -->
-    <script src='clouds.js'></script>
+    <script src='clouds.js' defer></script>
     <!-- Page Script -->
     <script src='script.js' defer></script>
     <!-- Structured Data -->
@@ -66,7 +68,7 @@
             <div class="twoitemwrapper">
                 <div class="witem iswleft">
                     <div class="logoshadowbox"></div>
-                    <img class="logo" src="logo.png" alt="RestNio Logo">
+                    <img class="logo" src="logo.png" alt="RestNio Logo" width="1010" height="1010" fetchpriority="high">
                 </div>
                 <div class="codewrapper iswright witem">
                     <div class="shadowbox"></div>
@@ -87,7 +89,7 @@ npm i restnio</code></pre>
                 </div>
                 <div class="codewrapper iswright witem">
                     <div class="shadowbox"></div>
-                    <div class="blocktitle"><h2><a id="about" href="/"></a>About</h2></div>
+                    <div class="blocktitle"><h2 id="about">About</h2></div>
                     <div class="blockcontent">
                         RestNio is a Node.js server framework built around one idea: write a route once, and it works over
                         both HTTP <em>and</em> WebSocket automatically. No duplicate handlers, no glue code.
@@ -102,9 +104,9 @@ npm i restnio</code></pre>
                         REST and real-time code in the same place.
                         <hr>
                         <div class="linkies">
-                            <a href="https://github.com/RestNio/RestNio.js" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a>
-                            <a href="https://www.npmjs.com/package/restnio" target="_blank" rel="noreferrer"><i class="fab fa-npm"></i></a>
-                            <a href="https://github.com/RestNio/RestNio.js/wiki" target="_blank" rel="noreferrer"><i class="fas fa-book"></i></a>
+                            <a href="https://github.com/RestNio/RestNio.js" target="_blank" rel="noreferrer" aria-label="GitHub repository"><i class="fab fa-github"></i></a>
+                            <a href="https://www.npmjs.com/package/restnio" target="_blank" rel="noreferrer" aria-label="npm package"><i class="fab fa-npm"></i></a>
+                            <a href="https://github.com/RestNio/RestNio.js/wiki" target="_blank" rel="noreferrer" aria-label="Documentation wiki"><i class="fas fa-book"></i></a>
                         </div>
                     </div>
                 </div>
@@ -121,7 +123,7 @@ npm i restnio</code></pre>
                 </div>
                 <div class="codewrapper iswright witem">
                     <div class="shadowbox"></div>
-                    <div class="blocktitle"><h2><a id="examples" href="/"></a>Examples</h2></div>
+                    <div class="blocktitle"><h2 id="examples">Examples</h2></div>
                     <div class="blockcontent" id="samplecoding">
                         <div class="examplemenu">
                             <button id="codesam1b" class="examplebtn">#1 Hello World</button>
@@ -333,7 +335,7 @@ app.bind();
                 </div>
                 <div class="codewrapper iswright witem iswnopad">
                     <div class="shadowbox"></div>
-                    <div class="blocktitle"><h2><a id="docs" href="/"></a>Documentation</h2></div>
+                    <div class="blocktitle"><h2 id="docs">Documentation</h2></div>
                     <div class="wikiwrapper">
                         <button class="wikinavtoggle" id="wikinavtoggle">
                             <span><i class="fas fa-bars"></i> <span class="wikinavtoggleLabel">Navigation</span></span>
