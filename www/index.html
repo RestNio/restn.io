@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>RestNio | REST Web-API's made simple.</title>
-    <meta name="description" content="Simple Web and WebSocket API's? RestNio provides an easy to use and comprehensive framework."/>
+    <title>RestNio — Node.js HTTP &amp; WebSocket API framework</title>
+    <meta name="description" content="RestNio is a Node.js framework that serves the same route over HTTP and WebSocket simultaneously. Built-in parameter validation, JWT auth, TypeScript support — zero external dependencies."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noodp,noydir"/>
+    <meta name="robots" content="index, follow"/>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
     <link rel="canonical" href="https://restn.io/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://restn.io/"/>
+    <meta property="og:title" content="RestNio — Node.js HTTP &amp; WebSocket API framework"/>
+    <meta property="og:description" content="Write a route once, serve it over both HTTP and WebSocket automatically. Built-in validation, JWT auth, TypeScript support, zero external dependencies."/>
+    <meta property="og:image" content="https://restn.io/logo.png"/>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="RestNio — Node.js HTTP &amp; WebSocket API framework"/>
+    <meta name="twitter:description" content="Write a route once, serve it over both HTTP and WebSocket automatically. Built-in validation, JWT auth, TypeScript support, zero external dependencies."/>
+    <meta name="twitter:image" content="https://restn.io/logo.png"/>
     <meta charset="utf-8"/>
     <link rel="shortcut icon" type="image/png" href="favicon.png"/>
     <link href="style.css" rel="stylesheet">
@@ -25,6 +36,26 @@
     <script src='clouds.js'></script>
     <!-- Page Script -->
     <script src='script.js' defer></script>
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "RestNio",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Node.js",
+        "description": "A Node.js framework for building HTTP and WebSocket APIs with a single route definition. Built-in parameter validation, JWT auth, TypeScript support, zero external dependencies.",
+        "url": "https://restn.io/",
+        "downloadUrl": "https://www.npmjs.com/package/restnio",
+        "codeRepository": "https://github.com/RestNio/RestNio.js",
+        "programmingLanguage": ["JavaScript", "TypeScript"],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </head>
 <body>
     <canvas id="canvas"></canvas>
@@ -39,7 +70,7 @@
                 </div>
                 <div class="codewrapper iswright witem">
                     <div class="shadowbox"></div>
-                    <div class="blocktitle"><h2>RestNio</h2></div>
+                    <div class="blocktitle"><h1>RestNio</h1></div>
                     <pre><code class="install batch"># In your node project folder run the command:
 npm i restnio</code></pre>
                 </div>
