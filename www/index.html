@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8"/>
     <title>RestNio — Node.js HTTP &amp; WebSocket API framework</title>
     <meta name="description" content="RestNio is a Node.js framework that serves the same route over HTTP and WebSocket simultaneously. Built-in parameter validation, JWT auth, TypeScript support — zero external dependencies."/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,24 +19,25 @@
     <meta name="twitter:title" content="RestNio — Node.js HTTP &amp; WebSocket API framework"/>
     <meta name="twitter:description" content="Write a route once, serve it over both HTTP and WebSocket automatically. Built-in validation, JWT auth, TypeScript support, zero external dependencies."/>
     <meta name="twitter:image" content="https://restn.io/logo.png"/>
-    <meta charset="utf-8"/>
     <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-    <!-- Preload the LCP image so the browser fetches it early -->
-    <link rel="preload" as="image" href="logo.png">
+    <!-- Preload critical resources -->
+    <link rel="preload" as="image" href="logo.png" fetchpriority="high">
+    <!-- Preload Font Awesome early (large file) but don't block render -->
+    <link rel="preload" href="font-awesome-all.css" as="style">
+    <!-- Critical CSS only: site styles + syntax highlighting theme -->
     <link href="style.css" rel="stylesheet">
-    <!-- Font-Awesome -->
-    <link href="font-awesome-all.css" rel="stylesheet">
-    <!-- Animate On Scroll -->
-    <link href="aos.css" rel="stylesheet">
-    <script src="aos.js" defer></script>
-    <!-- Highlight.js -->
     <link href="railscasts.css" rel="stylesheet">
-    <script src="highlight.pack.js" defer></script>
+    <!-- Non-critical CSS (Font Awesome, AOS) loaded async — avoids render-blocking -->
+    <script src="loadcss.js" async></script>
+    <!-- Library scripts run during parse so deferred script.js can use them immediately -->
+    <script src="aos.js"></script>
+    <!-- Highlight.js -->
+    <script src="highlight.pack.js"></script>
     <script src="highlightjs-badge.min.js" defer></script>
     <!-- Marked.js — Markdown renderer -->
-    <script src='marked.umd.js' defer></script>
+    <script src='marked.umd.js'></script>
     <!-- Clouds animation -->
-    <script src='clouds.js' defer></script>
+    <script src='clouds.js'></script>
     <!-- Page Script -->
     <script src='script.js' defer></script>
     <!-- Structured Data -->
@@ -366,7 +368,7 @@ app.bind();
                         </nav>
                         <div class="wikimain">
                             <div class="wikicontent" id="wikicontent">
-                                <span class="wikiloading"><i class="fas fa-spinner fa-spin"></i> Loading&hellip;</span>
+                                <span class="wikiloading">Loading&hellip;</span>
                             </div>
                             <div class="wikifooter">
                                 <a id="wikigithublink" href="https://github.com/RestNio/RestNio.js/wiki" target="_blank" rel="noreferrer">
@@ -391,7 +393,7 @@ app.bind();
                     <div class="shadowbox"></div>
                     <div class="blockcontent">
                         <div class="a16-9">
-                            <iframe class="youtube" title="YoutubeTutorials" src="https://www.youtube.com/embed/videoseries?list=PL8VvkGw7SJKWnGhHkZ0OmXV-JjFFdACUd&modestbranding=1&rel=0&color=white" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe class="youtube" title="YoutubeTutorials" src="https://www.youtube.com/embed/videoseries?list=PL8VvkGw7SJKWnGhHkZ0OmXV-JjFFdACUd&modestbranding=1&rel=0&color=white" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
                         </div>
                     </div>
                     <!--Title overlayed on video so lower. Is moved up with position in CSS-->

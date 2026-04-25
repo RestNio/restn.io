@@ -390,6 +390,23 @@ warning {
     font-family: Verdana, Geneva, sans-serif;
 }
 
+/* CSS-only spinner — no Font Awesome dependency */
+@keyframes wikiSpin {
+    to { transform: rotate(360deg); }
+}
+.wikiloading::before {
+    content: '';
+    display: inline-block;
+    width: 0.85em;
+    height: 0.85em;
+    border: 2px solid rgba(116, 163, 210, 0.3);
+    border-top-color: #74a3d2;
+    border-radius: 50%;
+    animation: wikiSpin 0.75s linear infinite;
+    vertical-align: text-bottom;
+    margin-right: 0.45em;
+}
+
 /* Markdown content typography */
 .wikicontent h1 {
     font-size: 1.35rem;
